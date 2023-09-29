@@ -1,17 +1,13 @@
-# Use an official Python runtime as the base image
-FROM python:3.9
+FROM node:16-alpine AS build
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy the application files to the container
+RUN npm install
+
 COPY . .
 
-# Install application dependencies
-RUN pip install -r requirements.txt
+RUN npm run build
 
-# Expose port 5000
-EXPOSE 5000
+EXPOSE 4200
 
-# Define the command to run the Flask application
-CMD ["python", "app.py"]
+CMD ["npm", "start"]
